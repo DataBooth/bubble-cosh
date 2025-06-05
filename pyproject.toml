@@ -1,7 +1,7 @@
 [project]
 name = "bubble-cosh"
 version = "0.1.0"
-description = "Add your description here"
+description = "Catenary calculation and visualisation code for bubble cosh functions."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -9,4 +9,10 @@ dependencies = [
     "matplotlib>=3.10.3",
     "plotly>=6.1.2",
     "scipy>=1.15.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.0",
+    "pytest-sugar>=1.0.0",
 ]
