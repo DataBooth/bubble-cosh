@@ -79,3 +79,48 @@ This code could be used for:
 ## **In Short**
 
 > **This code finds the best-fitting catenary curve between two points a certain distance apart, with specified vertical positions, and then calculates and outputs properties of that curve.**
+
+Certainly! Here’s a concise section for your **README** that explains what each `just` recipe does and how to use them. This is written in clear Australian English and is suitable for a project README.
+
+---
+
+## Command Recipes (`justfile`)
+
+This project uses a [`justfile`](https://just.systems) to organise and simplify common development and analysis tasks. Below is a summary of each available recipe and how to use them:
+
+- **default**  
+  Lists all available recipes in the justfile.  
+  _Usage:_  
+  ```sh
+  just
+  ```
+
+- **run-original-code**  
+  Runs the original `bubble-cosh.py` script for baseline or legacy calculations.  
+  _Usage:_  
+  ```sh
+  just run-original-code
+  ```
+
+- **run-new-code diameter="1.068" length="0.6"**  
+  Runs the new, class-based version of the bubble-cosh code, allowing you to specify the diameter and length (span) as arguments (or use the defaults of `1.068` and `0.6`).  
+  _Usage:_  
+  ```sh
+  just run-new-code 1.1 0.7
+  ```
+
+- **mo-edit**  
+  Opens the Marimo notebook version of bubble-cosh for editing in the Marimo environment.  
+  _Usage:_  
+  ```sh
+  just mo-edit
+  ```
+
+- **mo-run**  
+  Runs the Marimo notebook version of bubble-cosh, launching an interactive session.  
+  _Usage:_  
+  ```sh
+  just mo-run
+  ```
+
+These recipes streamline running, editing, and experimenting with both the original and updated (new) versions of the catenary/bubble-cosh code, as well as the interactive Marimo notebook with sliders to adjust the distance and length parameters dynamically.
