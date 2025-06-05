@@ -12,7 +12,7 @@ def _(mo):
 
     See the article - https://www.databooth.com.au/posts/caternary/
 
-    #### DataBooth - *Grow with Your Data*
+    #### [DataBooth](https://www.databooth.com.au) - *Grow with Your Data*
 
     ---
     """
