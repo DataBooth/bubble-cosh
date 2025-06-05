@@ -7,12 +7,12 @@ run-original-code:
 
 # Run new class-based bubble-cosh code (with input parameters)
 run-new-code diameter="1.068" length="0.6":
-    python community/bubble-cosh-databooth.py {{diameter}} {{length}}
+    python community/bubble_cosh_databooth.py {{diameter}} {{length}}
 
 # Edit the Marimo notebook version of bubble-cosh 
 mo-edit:
-    marimo edit community/bubble-cosh-databooth_mo.py
+    marimo edit community/bubble_cosh_databooth_mo.py
 
 # Run the Marimo notebook version of bubble-cosh 
 mo-run:
-    marimo run community/bubble-cosh-databooth_mo.py
+    marimo run community/bubble_cosh_databooth_mo.py

@@ -1,13 +1,13 @@
-import math
 import argparse
-from typing import Tuple
+import math
+
+import plotly.graph_objects as go
 
 
 class Catenary:
     """
     Represents a catenary curve defined by its endpoints and diameter.
-
-    Methods allow fitting parameters and computing geometric properties.
+    Provides methods for fitting, geometric calculations, and plotting.
     """
 
     INF: float = 1e12
@@ -41,9 +41,7 @@ class Catenary:
         except Exception:
             return self.INF
 
-    def fit_parameters(
-        self, precision: float = DEFAULT_PRECISION
-    ) -> Tuple[float, float]:
+    def fit_parameters(self, precision: float = None) -> tuple[float, float]:
         """
         Find the optimal catenary parameters a and b to fit the endpoints.
 
@@ -53,6 +51,8 @@ class Catenary:
         Returns:
             Tuple of optimised (a, b).
         """
+        if precision is None:
+            precision = self.DEFAULT_PRECISION
         step = self.DEFAULT_STEP
         error = self.INF
         a, b = self.DEFAULT_A, self.DEFAULT_B
@@ -80,6 +80,10 @@ class Catenary:
 
         self.a, self.b = a, b
         return a, b
+
+    def y(self, x: float) -> float:
+        """Return the y-coordinate of the catenary at position x."""
+        return self.a * math.cosh((x - self.b) / self.a)
 
     def area_under_curve(self) -> float:
         """Calculate the area under the catenary curve between endpoints."""
@@ -109,6 +113,76 @@ class Catenary:
             f"  Midpoint dip: {self.midpoint_dip():.7f}\n"
             f"  Midpoint gap: {self.midpoint_gap():.7f}"
         )
+
+    def describe(self) -> str:
+        """
+        Return a Markdown-formatted summary of the catenary's parameters and geometric properties.
+        """
+        return (
+            f"**Catenary parameters:**\n\n"
+            f"- a = `{self.a:.6f}`\n"
+            f"- b = `{self.b:.6f}`\n\n"
+            f"**Geometric properties:**\n\n"
+            f"- Area under curve: `{self.area_under_curve():.6f} m²`\n"
+            f"- Midpoint dip: `{self.midpoint_dip():.6f} m`\n"
+            f"- Midpoint gap: `{self.midpoint_gap():.6f} m`\n"
+        )
+
+    def plot(
+        self,
+        num_points: int = 200,
+        x_range: tuple[float, float] = None,
+        y_range: tuple[float, float] = (0, 1.5),
+        height: int = 700,
+        show_endpoints: bool = True,
+    ):
+        """
+        Plot the catenary curve using Plotly.
+
+        Args:
+            num_points: Number of points to plot along the curve.
+            x_range: Tuple (min_x, max_x) for the x-axis. If None, uses sensible defaults.
+            y_range: Tuple (min_y, max_y) for the y-axis.
+            height: Height of the plot in pixels.
+            show_endpoints: Whether to show the endpoints as red markers.
+
+        Returns:
+            Plotly Figure object, or None if Plotly is not installed.
+        """
+        if go is None:
+            raise ImportError("Plotly is required for plotting. Please install plotly.")
+
+        if x_range is None:
+            x_max = math.ceil(self.span * 10) / 10
+            x_min = -(self.span - 1)
+            x_range = (x_min, x_max)
+
+        x_vals = [i * self.span / (num_points - 1) for i in range(num_points)]
+        y_vals = [self.y(x) for x in x_vals]
+
+        fig = go.Figure()
+        fig.add_trace(
+            go.Scatter(x=x_vals, y=y_vals, mode="lines", name="Catenary Curve")
+        )
+        fig.update_layout(
+            title="Catenary Curve",
+            xaxis_title="Horizontal Distance (m)",
+            yaxis_title="Vertical Position (m)",
+            height=height,
+            xaxis=dict(range=list(x_range)),
+            yaxis=dict(range=list(y_range)),
+        )
+        if show_endpoints:
+            fig.add_trace(
+                go.Scatter(
+                    x=[0, self.span],
+                    y=[self.diameter / 2, self.diameter / 2],
+                    mode="markers",
+                    marker=dict(size=10, color="red"),
+                    name="Endpoints",
+                )
+            )
+        return fig
 
 
 def main():
