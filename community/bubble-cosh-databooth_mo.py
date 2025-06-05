@@ -5,6 +5,22 @@ app = marimo.App(width="medium")
 
 
 @app.cell
+def _(mo):
+    mo.md(
+        r"""
+    ### From Chaos to Clarity: Unlocking Business Value from Poorly Written & Documented or Legacy Code
+
+    See the article - https://www.databooth.com.au/posts/caternary/
+
+    #### DataBooth - *Grow with Your Data*
+
+    ---
+    """
+    )
+    return
+
+
+@app.cell
 def _():
     import marimo as mo
 
@@ -62,7 +78,7 @@ def _():
 def _(mo):
     mo.md(
         r"""
-    # Interactive Catenary Curve Explorer
+    ### Interactive Catenary Curve Explorer
 
     This notebook demonstrates the properties of a **catenary** curve, also known as a "chainette" or "alysoid."  
     A catenary is the shape assumed by a flexible, uniform chain or cable suspended by its ends and acted on only by gravity.
@@ -299,7 +315,7 @@ def _(MIN_SPAN, max_span, mo):
 def _(MAX_SPAN_RATIO, diameter, max_span, mo):
     mo.md(
         f"""
-    ### Catenary Parameter Constraints
+    ### Parameter Constraints
 
     - The **span** (horizontal distance between endpoints) must not exceed **{MAX_SPAN_RATIO:.2f} × diameter** (vertical distance between endpoints).
     - For the current diameter (**{diameter.value:.2f} m**), the maximum allowed span is **{max_span:.4f} m**.
@@ -307,12 +323,12 @@ def _(MAX_SPAN_RATIO, diameter, max_span, mo):
     - Horizontal distance between endpoints. Must be less than {MAX_SPAN_RATIO:.2f} times the diameter.
     - Vertical distance between endpoints. Must be positive.
 
-    **References:**  
+    ### References
 
     - [Wikipedia: Catenary](https://en.wikipedia.org/wiki/Catenary)  
     - [Engineering practice for catenary sag](https://jlengineering.net/blog/wp-content/uploads/2018/02/Aerial-Power-Cables.pdf)
 
-    ## Interactive Catenary Visualisation
+    ### Interactive Visualisation
 
     Adjust the sliders for **Diameter** and **Span** to see how the catenary curve changes.
     """
